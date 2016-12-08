@@ -289,7 +289,21 @@ open class RAMAnimatedTabBarController: UITabBarController {
       
       let icon = UIImageView(image: item.image?.withRenderingMode(renderMode))
       icon.translatesAutoresizingMaskIntoConstraints = false
-      icon.tintColor = item.iconColor
+
+        
+        /*
+         NoteBear tintColor/iconColor solution based on time of day.
+        */
+        let date = Date()
+        let calendar = Calendar.current()
+        let hour = calendar.component(.hour, from: date)
+        
+        if (hour > 19 || hour < 6) {
+            icon.tintColor = UIColor.white
+        } else {
+            icon.tintColor = item.iconColor
+        }
+        
       
       // text
       let textLabel = UILabel()
