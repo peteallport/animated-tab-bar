@@ -166,6 +166,35 @@ extension  RAMAnimatedTabBarController {
         self.tabBar.isHidden = isHidden;
     }
     
+    
+    
+    /**
+     Change UITabBarController index
+     
+     - parameter isHidden: A Boolean indicating whether the UITabBarController is displayed
+     */
+    open func animationTabBarIndex(_ shouldChangeIndex:Bool) {
+        guard let items = tabBar.items as? [RAMAnimatedTabBarItem] else {
+            fatalError("items must inherit RAMAnimatedTabBarItem")
+        }
+        
+        if shouldChangeIndex {
+            for item in items {
+                if let iconView = item.iconView {
+                    iconView.icon.superview?.layer.zPosition = -1
+                }
+            }
+        } else {
+            for item in items {
+                if let iconView = item.iconView {
+                    iconView.icon.superview?.layer.zPosition = 9999999
+                }
+            }
+        }
+        
+        self.tabBar.isHidden = shouldChangeIndex;
+    }
+    
     /**
      Selected UITabBarItem with animaton
      
